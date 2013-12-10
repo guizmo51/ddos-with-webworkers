@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+       
+        <script src="jquery-1.9.1.js"></script>
+        <script>
+
+        function http_request(){
+
+
+
+        }
+
+        $(document).ready(function() {
+            $("#go").click(function() {
+                var data={};
+                data.ip=$("#ip").val();
+                data.por=$("#port").val();
+                data.mode=$("#mode").val();
+                var nb=$("#nb").val();
+                
+                for(var i=0; i<nb; i++){
+
+   var myWorker = new Worker("worker.js");
+                myWorker.postMessage(JSON.stringify(data));
+                myWorker.onmessage = function(event) {
+     console.log(event.data);
+    };
+                    
+                }
+
+             
+                
+            });
+
+
+
+        });
+        </script>
+    </head>
+    <body>
+
+        <p>IP <input type="text" id="ip"  value="192.168.0.16"/></p>
+        <p>Port <input type="text" id="port" /></p>
+        <p>Mode <select id="mode"><option value="http">Http</option><option value="udp">UDP</option><option value="tcp">TCP</option></select></p>
+        <p>Nombre <select id="nb"><option value="10">10</option><option value="100">100</option><option value="1000">1000</option><option value="10000">10000</option></select></p>
+        <p><input type="button" id="go" value="go" /></p>
+
+       
+        
+
+        
+    </body>
+</html>
